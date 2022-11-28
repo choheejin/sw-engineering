@@ -1,4 +1,3 @@
-import {MyBadge, MyStamp} from "./components";
 
 export default function MyPage() {
     return(

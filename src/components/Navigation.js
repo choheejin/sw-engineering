@@ -41,7 +41,7 @@ function Navigation() {
                     {
                         IsLogin === 0 ?
                             <div className="flex gap-4">
-                                <a className="cursor-pointer" href={UserType === 'admin' ? '/admin' : `/user/${User}`} > {User}</a>
+                                <a className="cursor-pointer" href={UserType === 'admin' ? '/my-page/admin' : `/my-page/user/${User}`} > {User}</a>
                                 <a className="cursor-pointer" href={'/posts/'+User}>내 장바구니</a>
                                 <a className="cursor-pointer" href="">주문 배송 조회</a>
                             </div>
