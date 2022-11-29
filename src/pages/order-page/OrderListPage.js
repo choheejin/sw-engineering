@@ -51,7 +51,7 @@ export default function OrderListPage () {
 
                 </table>
 
-                {userType === 'user' ? <button className="bg-green-500 font-bold text-white py-1" onClick={() => navigate('/items')}>주문하러가기</button> : <button className="bg-green-500 font-bold text-white">반완료등록</button>}
+                {userType === 'user' ? <button className="bg-green-500 font-bold text-white py-1" onClick={() => navigate('/items')}>주문하러가기</button> : <button className="bg-green-500 font-bold text-white">반품완료등록</button>}
 
             </div>
         </div>
