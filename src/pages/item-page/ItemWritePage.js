@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export default function PostWritePage() {
+export default function ItemWritePage() {
     const [isModified, setIsModified] = useState(false);
     const [isPublic, setIsPublic] = useState(true);
 

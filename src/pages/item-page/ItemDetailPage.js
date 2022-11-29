@@ -1,8 +1,10 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import {CommentItem, PostItem, PostWriter} from "./components";
 
-export default function PostDetailPage() {
+export default function ItemDetailPage() {
+    const navigate = new useNavigate();
+
     const n = [
         {
             id: 1,
@@ -29,7 +31,7 @@ export default function PostDetailPage() {
             <div className="w-[60%] flex flex-col gap-8 mb-20">
 
                 {/*글내용*/}
-                <div className="w-full flex flex-col gap-4  mt-20">
+                <div className="w-full flex flex-col gap-10  mt-20">
                     <div className="flex">
                         <img className="w-1/3 object-center object-cover" src='../../images/sample.png'></img>
                         <div className="flex flex-col">
@@ -39,15 +41,15 @@ export default function PostDetailPage() {
                             <div className="">
                                 제품 수량 <input className="focus:outline-none border border-gray-200" type="number" min="1" placeholder="1"/>
                             </div>
-                            <div className="">
-                                <button>장바구니 담기</button>
-                                <button>바로구매</button>
-                                <button>수정하기</button>
+                            <div className="flex gap-2 mt-10">
+                                <button className="bg-blue-600 text-white font-bold px-5 py-2">장바구니 담기</button>
+                                <button className="bg-pink-600 text-white font-bold px-5 py-2">바로구매</button>
+                                <button className="bg-green-600 text-white font-bold px-5 py-2">수정하기</button>
                             </div>
                         </div>
                     </div>
-                    <div className="flex gap-3">
-                        <div className="min-w-fit border-r-2">제품소개</div>
+                    <div className="flex gap-5">
+                        <div className="min-w-fit pr-4 border-r-2">제품소개</div>
                         <div>
                             {
                                 data.split("\n").map((txt) => (
@@ -58,7 +60,7 @@ export default function PostDetailPage() {
                     </div>
                 </div>
 
-                <button>뒤로가기</button>
+                <button onClick={() => navigate('/items')} className="bg-amber-600 text-white font-bold px-5 py-2">뒤로가기</button>
             </div>
         </div>
     );

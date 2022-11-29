@@ -1,10 +1,14 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
-import {PostDetailPage, PostListPage, PostWritePage} from "./pages/post-page";
+import {ItemDetailPage, ItemListPage, ItemWritePage} from "./pages/item-page";
 import {MainPage, NotFoundPage} from "./pages";
-import {LoginPage, MyPage, SignupPage} from "./pages/auth-page";
+import {LoginPage, UserPage, SignupPage} from "./pages/auth-page";
 import {useState} from "react";
+import OrderListPage from "./pages/order-page/OrderListPage";
+import RepairListPage from "./pages/repair-page/RepairListPage";
+import EmployeePage from "./pages/auth-page/EmployeePage";
+import SupplierPage from "./pages/order-page/SupplierPage";
 
 function App() {
     const [isLogin, setIsLogin] = useState(false);
@@ -16,11 +20,19 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<LoginPage/>}></Route>
                     <Route path="/signup" element={<SignupPage/>}></Route>
-                    <Route path="/my-page/*" element={<MyPage/>}></Route>
 
-                    <Route path="/items" element={<PostListPage/>}></Route>
-                    <Route path="/item/:key" element={<PostDetailPage/>}></Route>
-                    <Route path="/posts/write" element={<PostWritePage/>}></Route>
+                    <Route path="/employee" element={<EmployeePage/>}></Route>
+                    <Route path="/user" element={<UserPage/>}></Route>
+
+                    <Route path="/items" element={<ItemListPage/>}></Route>
+                    <Route path="/item/:key" element={<ItemDetailPage/>}></Route>
+                    <Route path="/item/apply" element={<ItemWritePage/>}></Route>
+
+                    <Route path="/orders" element={<OrderListPage/>}></Route>
+                    <Route path="/suppliers" element={<SupplierPage/>}></Route>
+
+                    <Route path="/repairs" element={<RepairListPage />}></Route>
+
                     <Route path="/main" element={<MainPage/>}></Route>
 
                     <Route path="/" element={isLogin?<MainPage/> : <LoginPage/>}></Route>
