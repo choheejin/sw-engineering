@@ -1,41 +1,17 @@
-import PostItem from "./post-page/components/PostItem";
+import {useState} from "react";
 
 function MainPage() {
-    const n = [
-    {
-        id: 1,
-        url: 'images/sample.png',
-        title: '타이틀11',
-        content: '11입니다'
-    }, {
-        id: 2,
-        url: 'images/sample22.png',
-        title: '타이틀22',
-        content: '22입니다'
-    }, {
-        id: 3,
-        url: 'images/sample.png',
-        title: '타이틀33',
-        content: '33입니다'
-    }, {
-            id: 4,
-            url: 'images/sample22.png',
-            title: '타이틀44',
-            content: '44입니다'
-        },
-        {
-            id: 5,
-            url: 'images/sample.png',
-            title: '타이틀55',
-            content: '55입니다'
-        }]; // 가데이터
+    const [userType, setUserType] = new useState('user');
 
     return(
         <div className="w-full flex justify-center">
-            <div className="w-[75%] mt-6 grid grid-cols-4 gap-5 items-center justify-center">
-                {
-                    n.map( (item) => <PostItem item={item} key={item.id}/> )
-                }
+            <div className={`w-[75%] mt-32 grid  gap-16 items-center justify-center ${userType==='user'? 'grid-cols-4': 'grid-cols-6'}`}>
+                {userType==='admin'?<a className="">직원</a>:<></>}
+                <a className="border-blue-500 border h-16 flex justify-center items-center" href="/user">고객</a>
+                {userType==='admin'?<a className="border-blue-500 border h-16 flex justify-center items-center">판매목록</a>:<a href="/items" className="border-blue-500 border h-16 flex justify-center items-center">물품목록</a>}
+                {userType==='admin'?<a className="border-blue-500 border h-16 flex justify-center items-center" href="/crop">공급업체목록</a>:<></>}
+                <a className="border-blue-500 border h-16 flex justify-center items-center" href="/repair">수리목록</a>
+                <a className="border-blue-500 border h-16 flex justify-center items-center" href="/orders">주문/반품</a>
             </div>
         </div>
     );

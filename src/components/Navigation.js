@@ -8,11 +8,11 @@ function Navigation() {
 
     useEffect(() => {
         if(sessionStorage.getItem('ct-accessToken')){
-            setIsLogin(1);
+            setIsLogin(0);
             // 로그인 정보 getMe() 호출하여 user set
+            // setUserType('user');
+            // setUser('choheejin');
         }
-        setUserType('user');
-        setUser('choheejin');
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll)
@@ -39,7 +39,7 @@ function Navigation() {
                 </a>
                 <div>
                     {
-                        IsLogin === 0 ?
+                        IsLogin === 1 ?
                             <div className="flex gap-4">
                                 <a className="cursor-pointer" href={UserType === 'admin' ? '/my-page/admin' : `/my-page/user/${User}`} > {User}</a>
                                 <a className="cursor-pointer" href={'/posts/'+User}>내 장바구니</a>

@@ -1,9 +1,23 @@
 import {useState} from "react";
+import axios from "axios";
 
 function SignupPage() {
     const [userID, setUserID] = new useState('');
     const [password, setPassword] = new useState('');
     const [confirmPw, setConfirmPw] = new useState('');
+
+    const onSubmit = () => {
+        const data = {
+            'cusNo' : '1',
+            'cusName' : userID,
+            'cusTel' : userID,
+            'cusAddr' : userID,
+        }
+        axios.post('https://localhost:3000', data).then(response => {
+                console.log(response);
+            }
+        );
+    }
 
     return (
         <div className="w-full flex justify-center">
@@ -15,14 +29,14 @@ function SignupPage() {
                            name="id"
                            className="focus:outline-none border border-gray-300 rounded-sm py-1"
                            onChange={(e) => { setUserID(e.target.value) }}/>
-                    <input type="password"
-                           name="password"
-                           className="focus:outline-none border border-gray-300 rounded-sm py-1"
-                           onChange={(e) => { setPassword(e.target.value)}}/>
-                    <input type="password"
-                           name="confirmPw"
-                           className="focus:outline-none border border-gray-300 rounded-sm py-1"
-                           onChange={(e) => { setPassword(e.target.value)}}/>
+                    {/*<input type="password"*/}
+                    {/*       name="password"*/}
+                    {/*       className="focus:outline-none border border-gray-300 rounded-sm py-1"*/}
+                    {/*       onChange={(e) => { setPassword(e.target.value)}}/>*/}
+                    {/*<input type="password"*/}
+                    {/*       name="confirmPw"*/}
+                    {/*       className="focus:outline-none border border-gray-300 rounded-sm py-1"*/}
+                    {/*       onChange={(e) => { setPassword(e.target.value)}}/>*/}
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-1">회원가입 하기</button>
                     <div className="text-end text-sm">이미 회원이신가요? <a href="/login" className="text-blue-600 font-bold text-lg">로그인 하기</a></div>
                 </form>
