@@ -7,15 +7,13 @@ function Navigation() {
     const [UserType, setUserType] = useState('');
     const [IsScroll, setIsScroll] = useState(0);
 
-    const cusNo = localStorage.getItem('cusNo');
-
     const getMe = async () => {
-        return await axios.get(`http://localhost:4000/customer/${cusNo}`);
+        return await axios.get(`http://localhost:4000/customer/${localStorage.getItem('cusNo')}`);
     }
 
 
     useEffect(() => {
-        if(cusNo){
+        if(localStorage.getItem('cusNo')){
             setIsLogin(1);
             // 로그인 정보 getMe() 호출하여 user set
             // setUserType('user');
