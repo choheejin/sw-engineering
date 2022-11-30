@@ -1,43 +1,50 @@
 import {useState} from "react";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function ItemWritePage() {
     const [isModified, setIsModified] = useState(false);
     const [isPublic, setIsPublic] = useState(true);
+    const [plNo, setPlNo] = useState('');
+    const [pNo, setPNo] = useState('')
+    const [pName, setPName] = useState('');
+    const navigate = new useNavigate();
 
     const onSubmit = () => {
-
+        const data = {
+            'plNo' : parseInt(plNo),
+            'pNo' : parseInt(pNo),
+            'pName' : pName,
+            'cNo' : 100,
+            'cName' : 'name'
+        };
+        axios.post('http://localhost:4000/itemList/post', data).then(response => {
+            if(response.status === 200){
+                alert('물품 등록이 완료되었습니다.');
+                navigate('/items');
+            }
+        });
     };
 
     return(
         <div className="w-full flex justify-center">
-            <div className="w-[70%] flex flex-col h-full">
-                <form>
+            <div className="w-[70%] flex flex-col h-full mt-10">
+                <form onSubmit={onSubmit}>
                     <div className="flex flex-col w-full h-full gap-2 mb-5 mt-3">
-                        <div className="font-bold mb-3 text-lg px-1">글 작성하기</div>
-                        <div className="flex gap-2 items-center">
+                        <div className="font-bold mb-3 text-lg px-1">물품 등록하기</div>
+                        <div className="flex gap-2 items-center flex-col">
                             <input type="text"
-                                   placeholder="제목"
+                                   placeholder="물품번호"
+                                   onChange={(e) => {setPlNo(e.target.value)}}
                                    className="w-full py-1 px-2 focus:outline-none rounded-sm border border-gray-200"/>
-                        </div>
-                        <textarea className="resize-none w-full h-80 mt-1 focus:outline-none p-1 rounded-sm border border-gray-200"></textarea>
-                    </div>
-
-                    <div className="grid grid-cols-2 w-full h-full border py-4 border-gray-200 px-6 bg-white drop-shadow-md">
-                        <div className="flex items-center gap-6">
-                            <div className="font-bold">카테고리</div>
-                            <select className="focus:outline-none p-1 border border-gray-200 rounded-sm">
-                                <option>일상</option>
-                                <option>고민</option>
-                                <option>질문</option>
-                            </select>
-                        </div>
-
-                        <div className="flex items-center gap-6">
-                            <div className="font-bold">공개설정</div>
-                            <div className="flex gap-4 items-center">
-                                <label ><input className="mr-1" type="radio" name="all" checked={isPublic} onChange={() => setIsPublic(!isPublic)}/>전체공개</label>
-                                <label><input className="mr-1" type="radio" name="none" checked={!isPublic} onChange={() => setIsPublic(!isPublic)}/>비공개</label>
-                            </div>
+                            <input type="text"
+                                   placeholder="물품고유번호"
+                                   onChange={(e) => {setPNo(e.target.value)}}
+                                   className="w-full py-1 px-2 focus:outline-none rounded-sm border border-gray-200"/>
+                            <input type="text"
+                                   placeholder="뭂품이름"
+                                   onChange={(e) => {setPName(e.target.value)}}
+                                   className="w-full py-1 px-2 focus:outline-none rounded-sm border border-gray-200"/>
                         </div>
                     </div>
 
