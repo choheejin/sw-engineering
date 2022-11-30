@@ -21,14 +21,15 @@ function Navigation() {
 
     useEffect(() => {
         if(localStorage.getItem('cusNo')){
-            setIsLogin(1);
             // 로그인 정보 getMe() 호출하여 user set
             // setUserType('user');
             getMe().then(response => {
                 setUser(response.data.custFound[0].cusName);
             });
+
+            return setIsLogin(1);
         } else {
-            setIsLogin(0);
+            return setIsLogin(0);
         }
     });
 
