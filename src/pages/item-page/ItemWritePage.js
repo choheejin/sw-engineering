@@ -8,6 +8,7 @@ export default function ItemWritePage() {
     const [plNo, setPlNo] = useState('');
     const [pNo, setPNo] = useState('')
     const [pName, setPName] = useState('');
+    const [cusName, setCusName] = useState('');
     const navigate = new useNavigate();
 
     const cusNo = localStorage.getItem('cusNo');
@@ -16,13 +17,14 @@ export default function ItemWritePage() {
         return await axios.get(`http://localhost:4000/customer/${cusNo}`);
     }
 
-    // useEffect(() => {
-    //     if(cusNo){
-    //         getMe().then(response => {
-    //            console.log();
-    //         });
-    //     }
-    // })
+    useEffect(() => {
+        if(cusName) return;
+        if(cusNo){
+            getMe().then(response => {
+               setCusName(response.data.custFound[0].cusName);
+            });
+        }
+    }, [cusName]);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -31,8 +33,8 @@ export default function ItemWritePage() {
                 'plNo' : parseInt(plNo),
                 'pNo' : parseInt(pNo),
                 'pName' : pName,
-                'cNo' : localStorage.getItem('cusNo'),
-                'cName' : 'name'
+                'cNo' : cusNo,
+                'cName' : cusName
             };
             axios.post('http://localhost:4000/itemList/post', data).then(response => {
                 if(response.status === 200){
@@ -72,9 +74,9 @@ export default function ItemWritePage() {
                         <button className="drop-shadow-sm flex items-center rounded-sm gap-2 bg-blue-500 w-fit px-4 py-1.5 text-white font-bold"
                                 type="submit"
                                 onClick={onSubmit}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                                  stroke="currentColor" className="w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round"
+                                <path strokeLinecap="round" strokeLinejoin="round"
                                       d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/>
                             </svg>
                             {isModified ? '수정하기' : '등록하기'}</button>

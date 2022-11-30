@@ -28,7 +28,7 @@ export default function ItemListPage() {
                 }
             });
         }
-    });
+    }, [loading]);
 
     return(
         <div className="w-full flex justify-center items-center">
@@ -48,7 +48,7 @@ export default function ItemListPage() {
                         <th>등록날짜</th>
                     </tr>
                     {
-                        Response ? Response.map((item) => {return (<tr className="cursor-pointer hover:bg-gray-200" onClick={() => {navigate(`/item/${item._id}`);}}><td>{item.pNo}</td><td>{item.pName}</td><td>{item.pPrice}</td><td>{item.createdAt}</td></tr>)}) : <></>
+                        Response ? Response.map((item) => {return (<tr key={item._id} className="cursor-pointer hover:bg-gray-200" onClick={() => {navigate(`/item/${item._id}`);}}><td>{item.pNo}</td><td>{item.pName}</td><td>{item.pPrice}</td><td>{item.createdAt}</td></tr>)}) : <></>
                     }
                 </table>
                 {userType === 'admin' ? <button className="bg-green-500 font-bold text-white py-1" onClick={() => navigate('/item/apply')}>물품 등록하기</button> : <></>}
