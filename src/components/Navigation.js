@@ -56,7 +56,7 @@ function Navigation() {
                                 <a className="cursor-pointer" href={UserType === 'admin' ? '/my-page/admin' : `/my-page/user/${User}`} > {User}</a>
                                 <a className="cursor-pointer" href={'/posts/'+User}>내 장바구니</a>
                                 <a className="cursor-pointer" href="">주문 배송 조회</a>
-                                <a className="cursor-pointer" onClick={localStorage.clear}>로그아웃</a>
+                                <a className="cursor-pointer" onClick={() => {localStorage.clear()}}>로그아웃</a>
                             </div>
                             :
                             <a href="/login">로그인 하기</a>

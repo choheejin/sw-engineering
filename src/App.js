@@ -16,6 +16,8 @@ function App() {
     useEffect(() => {
         if(localStorage.getItem('cusNo')){
             setIsLogin(true);
+        } else {
+            setIsLogin(false);
         }
     })
 
