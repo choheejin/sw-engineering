@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import axios from "axios";
 
 function Navigation() {
     const [IsLogin, setIsLogin] = useState(0);
@@ -6,19 +7,30 @@ function Navigation() {
     const [UserType, setUserType] = useState('');
     const [IsScroll, setIsScroll] = useState(0);
 
+    const cusNo = localStorage.getItem('cusNo');
+
+    const getMe = async () => {
+        return await axios.get(`http://localhost:4000/customer/${cusNo}`);
+    }
+
+
     useEffect(() => {
-        if(localStorage.getItem('cusNo')){
+        if(cusNo){
             setIsLogin(1);
             // 로그인 정보 getMe() 호출하여 user set
             // setUserType('user');
-            // setUser('choheejin');
+            getMe().then(response => {
+                setUser(response.data.custFound[0].cusName);
+            });
+        } else {
+            setIsLogin(0);
         }
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll)
         }
 
-    }, []);
+    }, [IsLogin, cusNo]);
 
     const handleScroll = () => {
         const scrollPosition = window.pageYOffset;
