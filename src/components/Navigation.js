@@ -28,7 +28,7 @@ function Navigation() {
             window.removeEventListener('scroll', handleScroll)
         }
 
-    }, [IsLogin, cusNo]);
+    });
 
     const handleScroll = () => {
         const scrollPosition = window.pageYOffset;
