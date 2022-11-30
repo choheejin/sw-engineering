@@ -11,6 +11,13 @@ function Navigation() {
         return await axios.get(`http://localhost:4000/customer/${localStorage.getItem('cusNo')}`);
     }
 
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        }
+    });
+
 
     useEffect(() => {
         if(localStorage.getItem('cusNo')){
@@ -23,11 +30,6 @@ function Navigation() {
         } else {
             setIsLogin(0);
         }
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-
     });
 
     const handleScroll = () => {
