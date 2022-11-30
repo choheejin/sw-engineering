@@ -1,30 +1,34 @@
-import {PostWriter} from "./components";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function ItemListPage() {
     const [userType, setUserType] = new useState('admin');
+    const [Response, setResponse] = new useState([]);
+    const [loading, setLoading] = new useState(false);
 
     const navigate = new useNavigate();
-    const n = [
-        {
-            id: 1,
-            title: '타이틀11',
-        }, {
-            id: 2,
-            title: '타이틀22',
-        }, {
-            id: 3,
-            title: '타이틀33',
-        }, {
-            id: 4,
-            title: '타이틀44',
-        },
-        {
-            id: 5,
-            title: '타이틀55',
-        }]; // 가데이터
+    const getItems = async() => {
+        try {
+            return await axios.get('http://localhost:4000/items/');
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
+    useEffect(() => {
+        if(!loading) {
+            getItems().then(response => {
+                if(response.data) {
+                    response.data.forEach(item => {
+                        setResponse(data => [...data , item]);
+                    });
+                    console.log(Response);
+                    setLoading(true);
+                }
+            });
+        }
+    });
 
     return(
         <div className="w-full flex justify-center items-center">
@@ -36,21 +40,19 @@ export default function ItemListPage() {
                     <input className="w-full">
                     </input>
                 </div>
-                <table>
+                <table className="text-center">
                     <tr>
                         <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성날짜</th>
+                        <th>제품명</th>
+                        <th>가격</th>
+                        <th>등록날짜</th>
                     </tr>
                     {
-                        n.map(item => {return (<tr className="cursor-pointer hover:bg-gray-200" onClick={() => {navigate(`/item/${item.id}`);}}><td>{item.id}</td><td>{item.title}</td><td>작성자</td><td>작성날짜</td></tr>)})
+                        Response ? Response.map((item) => {return (<tr className="cursor-pointer hover:bg-gray-200" onClick={() => {navigate(`/item/${item._id}`);}}><td>{item.pNo}</td><td>{item.pName}</td><td>{item.pPrice}</td><td>{item.createdAt}</td></tr>)}) : <></>
                     }
                 </table>
                 {userType === 'admin' ? <button className="bg-green-500 font-bold text-white py-1" onClick={() => navigate('/item/apply')}>물품 등록하기</button> : <></>}
             </div>
         </div>
-
-
     );
 }

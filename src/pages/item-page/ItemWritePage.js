@@ -10,7 +10,8 @@ export default function ItemWritePage() {
     const [pName, setPName] = useState('');
     const navigate = new useNavigate();
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         const data = {
             'plNo' : parseInt(plNo),
             'pNo' : parseInt(pNo),
@@ -29,7 +30,7 @@ export default function ItemWritePage() {
     return(
         <div className="w-full flex justify-center">
             <div className="w-[70%] flex flex-col h-full mt-10">
-                <form onSubmit={onSubmit}>
+                <form onSubmit={(e) => {onSubmit(e)}}>
                     <div className="flex flex-col w-full h-full gap-2 mb-5 mt-3">
                         <div className="font-bold mb-3 text-lg px-1">물품 등록하기</div>
                         <div className="flex gap-2 items-center flex-col">
