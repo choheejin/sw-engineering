@@ -7,8 +7,8 @@ function Navigation() {
     const [IsScroll, setIsScroll] = useState(0);
 
     useEffect(() => {
-        if(sessionStorage.getItem('ct-accessToken')){
-            setIsLogin(0);
+        if(localStorage.getItem('cusNo')){
+            setIsLogin(1);
             // 로그인 정보 getMe() 호출하여 user set
             // setUserType('user');
             // setUser('choheejin');

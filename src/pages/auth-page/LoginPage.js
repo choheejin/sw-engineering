@@ -16,6 +16,7 @@ function LoginPage() {
         }
         axios.post('http://localhost:4000/login', data).then(response => {
                 if(response.status === 200) {
+                    localStorage.setItem('cusNo', response.data);
                     alert('로그인이 완료되었습니다.');
                     navigate('/main');
                 }

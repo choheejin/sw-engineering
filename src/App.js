@@ -4,7 +4,7 @@ import Navigation from "./components/Navigation";
 import {ItemDetailPage, ItemListPage, ItemWritePage} from "./pages/item-page";
 import {MainPage, NotFoundPage} from "./pages";
 import {LoginPage, UserPage, SignupPage} from "./pages/auth-page";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import OrderListPage from "./pages/order-page/OrderListPage";
 import RepairListPage from "./pages/repair-page/RepairListPage";
 import EmployeePage from "./pages/auth-page/EmployeePage";
@@ -12,6 +12,12 @@ import SupplierPage from "./pages/order-page/SupplierPage";
 
 function App() {
     const [isLogin, setIsLogin] = useState(false);
+
+    useEffect(() => {
+        if(localStorage.getItem('cusNo')){
+            setIsLogin(true);
+        }
+    })
 
     return (
         <div className="bg-gray-50 h-full min-h-screen">
@@ -35,7 +41,7 @@ function App() {
 
                     <Route path="/main" element={<MainPage/>}></Route>
 
-                    <Route path="/" element={isLogin?<MainPage/> : <LoginPage/>}></Route>
+                    <Route path="/" element={isLogin? <MainPage/> : <LoginPage/>}></Route>
                     <Route path="*" element={<NotFoundPage/>}></Route>
                 </Routes>
             </Router>

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
@@ -10,21 +10,40 @@ export default function ItemWritePage() {
     const [pName, setPName] = useState('');
     const navigate = new useNavigate();
 
+    const cusNo = localStorage.getItem('cusNo');
+
+    const getMe = async () => {
+        return await axios.get(`http://localhost:4000/customer/${cusNo}`);
+    }
+
+    // useEffect(() => {
+    //     if(cusNo){
+    //         getMe().then(response => {
+    //            console.log();
+    //         });
+    //     }
+    // })
+
     const onSubmit = (e) => {
         e.preventDefault();
-        const data = {
-            'plNo' : parseInt(plNo),
-            'pNo' : parseInt(pNo),
-            'pName' : pName,
-            'cNo' : 100,
-            'cName' : 'name'
-        };
-        axios.post('http://localhost:4000/itemList/post', data).then(response => {
-            if(response.status === 200){
-                alert('물품 등록이 완료되었습니다.');
-                navigate('/items');
-            }
-        });
+        if(cusNo){
+            const data = {
+                'plNo' : parseInt(plNo),
+                'pNo' : parseInt(pNo),
+                'pName' : pName,
+                'cNo' : localStorage.getItem('cusNo'),
+                'cName' : 'name'
+            };
+            axios.post('http://localhost:4000/itemList/post', data).then(response => {
+                if(response.status === 200){
+                    alert('물품 등록이 완료되었습니다.');
+                    navigate('/items');
+                }
+            });
+        }else {
+            alert('로그인이 필요합니다');
+            navigate('/login');
+        }
     };
 
     return(
